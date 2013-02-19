@@ -26,9 +26,13 @@ Utility::Utility()
 //---------------------------------------------------------------------------------------
 bool Utility::MouseOver(int MouseX,int MouseY,sf::Sprite Sprite, float rX, float rY)
 {
+	sf::Vector2f coords_m, coords_s;
+	coords_s = window.convertCoords(sf::Vector2i(Sprite.getPosition()), v1);
+	coords_m = window.convertCoords(sf::Vector2i(MouseX,MouseY),v1);
+
 	//checks is the mouse is inside a sprites rectangle
-	return	(MouseX < Sprite.getPosition().x *(width/Original_w) + Sprite.getTextureRect().width *rX ) && (Sprite.getPosition().x *(width/Original_w) < MouseX ) && 
-		(MouseY < Sprite.getPosition().y *(height/Original_h) + Sprite.getTextureRect().height *rY ) && (Sprite.getPosition().y * (height/Original_h) < MouseY );
+	return	(coords_m.x < Sprite.getPosition().x  + Sprite.getTextureRect().width *rX ) && (Sprite.getPosition().x  < coords_m.x ) && 
+		(coords_m.y < Sprite.getPosition().y  + Sprite.getTextureRect().height *rY ) && (Sprite.getPosition().y  < coords_m.y );
 	
 }
 
