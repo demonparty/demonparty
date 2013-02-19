@@ -24,18 +24,22 @@ Utility::Utility()
 	SetUpWindow(width,height);
 }
 //---------------------------------------------------------------------------------------
-bool Utility::MouseOver(int MouseX,int MouseY,sf::Sprite Sprite, float rX, float rY)
+bool Utility::MouseOver(int MouseX,int MouseY,sf::Sprite Sprite)
 {
 	sf::Vector2f coords_m, coords_s;
 	coords_s = window.convertCoords(sf::Vector2i(Sprite.getPosition()), v1);
 	coords_m = window.convertCoords(sf::Vector2i(MouseX,MouseY),v1);
 
 	//checks is the mouse is inside a sprites rectangle
-	return	(coords_m.x < Sprite.getPosition().x  + Sprite.getTextureRect().width *rX ) && (Sprite.getPosition().x  < coords_m.x ) && 
-		(coords_m.y < Sprite.getPosition().y  + Sprite.getTextureRect().height *rY ) && (Sprite.getPosition().y  < coords_m.y );
+	return	(coords_m.x < Sprite.getPosition().x  + Sprite.getTextureRect().width ) && (Sprite.getPosition().x  < coords_m.x ) && 
+		(coords_m.y < Sprite.getPosition().y  + Sprite.getTextureRect().height ) && (Sprite.getPosition().y  < coords_m.y );
 	
 }
-
+//---------------------------------------------------------------------------------------
+bool Utility::SpriteCollision(sf::Sprite s1, sf::Sprite s2, int buffer)
+{
+	return false;
+}
 //---------------------------------------------------------------------------------------
 void Utility::SetMask(int red, int blue, int green, std::string filename)
 {

@@ -4,7 +4,7 @@
 #include "utility.h"
 #include "player.h"
 #include "monster.h"
-
+#include "collision.h"
 //Nah Nolan sucks
 
 void Start(sf::Sprite &s, sf::Texture &t);
@@ -107,7 +107,14 @@ int main()
 			//scales player to proper resolution
 			player.ReturnPosition().scale(tools.ReturnRatioX(),tools.ReturnRatioY());
 
-			if(tools.MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,pizza,tools.ReturnRatioX(),tools.ReturnRatioY()))
+			if(tools.MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,pizza))
+			{
+				text.setPosition(pizza.getPosition().x,pizza.getPosition().y- tools.ReturnHeight()*.15);
+				bubble.setPosition(pizza.getPosition().x - tools.ReturnWidth()*.02,pizza.getPosition().y - tools.ReturnHeight()*.25);
+				window->draw(bubble);
+				window->draw(text);
+			}
+			if(Collision::BoundingBoxTest(pizza,player.ReturnPosition()))
 			{
 				text.setPosition(pizza.getPosition().x,pizza.getPosition().y- tools.ReturnHeight()*.15);
 				bubble.setPosition(pizza.getPosition().x - tools.ReturnWidth()*.02,pizza.getPosition().y - tools.ReturnHeight()*.25);
@@ -168,9 +175,9 @@ bool Menu(sf::RenderWindow &w, float ratioX, float ratioY)
 	w.draw(quit_button);
 	
 	//checking if the play and quit sprites are being(left) clicked. (see utility.h)
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && tools.MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,quit_button,tools.ReturnRatioX(),tools.ReturnRatioY()))
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && tools.MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,quit_button))
 		w.close();
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && tools.MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,play_button,tools.ReturnRatioX(),tools.ReturnRatioY()))
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && tools.MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,play_button))
 		return false;
 
 	return true;

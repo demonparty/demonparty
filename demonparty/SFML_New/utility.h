@@ -23,8 +23,12 @@ public:
 	Utility();
 	//default constructor
 
-	bool Utility::MouseOver(int MouseX,int MouseY,sf::Sprite Sprite, float rX, float rY);
+	bool MouseOver(int MouseX,int MouseY,sf::Sprite Sprite);
 	// Checks if the mouse is currently over the sprite.
+
+	bool SpriteCollision(sf::Sprite s1, sf::Sprite s2, int buffer);
+	//true when the first sprite is within the buffer zone of the second
+	// (x - axis)
 
 	void SetMask(int red, int blue, int green, std::string filename);
 	//this functions takes a color of a pictures background 
