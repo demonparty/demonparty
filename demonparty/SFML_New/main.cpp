@@ -1,3 +1,5 @@
+//ERIC SUCKS
+
 #include <SFML/Graphics.hpp>
 #include "char_controls.h"
 #include <iostream>
