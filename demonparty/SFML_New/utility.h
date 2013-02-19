@@ -5,7 +5,17 @@
 + mouse over sprite
 */
 
+#ifndef demon_utility
+#define demon_utility
+
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <cstdlib>
+#include <vector>
+#include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+using namespace std;
 
 class Utility{
 	
@@ -52,3 +62,5 @@ private:
 	sf::RenderWindow window;
 	sf::View v1;
 };
+
+#endif

@@ -1,6 +1,17 @@
-//public:
-#include <SFML/Graphics.hpp>
+
+
+#ifndef demon_player
+#define demon_player
+
+#include "utility.h"
 #include <iostream>
+#include <string>
+#include <iomanip>
+#include <cstdlib>
+#include <vector>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+using namespace std;
 
 class PlayerClass{
 
@@ -23,3 +34,5 @@ class PlayerClass{
 		int right;
 		int up;
 };
+
+#endif

@@ -1,14 +1,11 @@
 //ERIC SUCKS
 
-#include <SFML/Graphics.hpp>
-#include "player.h"
-#include <iostream>
+
 #include "utility.h"
+#include "player.h"
+#include "monster.h"
 
 //Nah Nolan sucks
-
-
-using namespace std;
 
 void Start(sf::Sprite &s, sf::Texture &t);
 bool Menu(sf::RenderWindow &w, float ratioX, float ratioY);

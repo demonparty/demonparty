@@ -1,7 +1,7 @@
 // utility.cpp - Nolan Vance
 
 #include "utility.h"
-#include<iostream>
+
 
 Utility::Utility()
 {

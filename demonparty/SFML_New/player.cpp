@@ -1,5 +1,6 @@
 // char_controls.cpp - Nolan Vance
 
+#include "utility.h"
 #include "player.h"
 
 PlayerClass::PlayerClass()
