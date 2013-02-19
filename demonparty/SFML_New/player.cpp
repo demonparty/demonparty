@@ -1,8 +1,8 @@
 // char_controls.cpp - Nolan Vance
 
-#include "char_controls.h"
+#include "player.h"
 
-Char_controls::Char_controls()
+PlayerClass::PlayerClass()
 {
 	velx = 0; 
 	vely = 0;
@@ -17,13 +17,13 @@ Char_controls::Char_controls()
 	right = 96;
 	up = 144;
 
-	if(man.loadFromFile("Images/man.png"))
-		manSprite.setTexture(man,0);
-	manSprite.setScale(4.0,4.0);
-	manSprite.setOrigin(0.0,-100.0);
+	if(playerTexture.loadFromFile("Images/man.png"))
+		playerSprite.setTexture(playerTexture,0);
+	playerSprite.setScale(4.0,4.0);
+	playerSprite.setOrigin(0.0,-100.0);
 }
 //---------------------------------------------------------------------------------------
-void Char_controls::LoadControls(sf::RenderWindow & w)
+void PlayerClass::LoadControls(sf::RenderWindow & w)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Joystick::isButtonPressed(0,0))
 	{
@@ -55,20 +55,20 @@ void Char_controls::LoadControls(sf::RenderWindow & w)
 	y += vely;
 
 	if(velx != 0 || vely != 0)
-		sourceX += man.getSize().x / 4;
+		sourceX += playerTexture.getSize().x / 4;
 	else
 		sourceX = 0;
 
-	if(sourceX == man.getSize().x)
+	if(sourceX == playerTexture.getSize().x)
 		sourceX = 0;
 
 	//w.clear()
-	manSprite.setTextureRect(sf::IntRect(sourceX, sourceY,man.getSize().x / 4, man.getSize().y /4 ));
-	manSprite.setPosition(x,y);
-	w.draw(manSprite);
+	playerSprite.setTextureRect(sf::IntRect(sourceX, sourceY,playerTexture.getSize().x / 4, playerTexture.getSize().y /4 ));
+	playerSprite.setPosition(x,y);
+	w.draw(playerSprite);
 }
 //---------------------------------------------------------------------------------------
-sf::Sprite Char_controls::ReturnPosition()
+sf::Sprite PlayerClass::ReturnPosition()
 {
-	return manSprite;
+	return playerSprite;
 }

@@ -1,7 +1,7 @@
 //ERIC SUCKS
 
 #include <SFML/Graphics.hpp>
-#include "char_controls.h"
+#include "player.h"
 #include <iostream>
 #include "utility.h"
 
@@ -14,7 +14,7 @@ void Start(sf::Sprite &s, sf::Texture &t);
 bool Menu(sf::RenderWindow &w, float ratioX, float ratioY);
 
 //made these global while testing
-Char_controls controls;
+PlayerClass player;
 Utility tools;			
 sf::View mainView;
 
@@ -105,10 +105,10 @@ int main()
 			window->clear();
 			window->draw(bgs);
 			window->draw(pizza);
-			//loads the player controls,images, ect. (see char_controls.h )
-			controls.LoadControls(*window);
+			//loads the player player,images, ect. (see char_player.h )
+			player.LoadControls(*window);
 			//scales player to proper resolution
-			controls.ReturnPosition().scale(tools.ReturnRatioX(),tools.ReturnRatioY());
+			player.ReturnPosition().scale(tools.ReturnRatioX(),tools.ReturnRatioY());
 
 			if(tools.MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,pizza,tools.ReturnRatioX(),tools.ReturnRatioY()))
 			{
