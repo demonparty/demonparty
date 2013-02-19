@@ -3,6 +3,9 @@
 #include <iostream>
 #include "utility.h"
 
+//Nah Nolan sucks
+
+
 using namespace std;
 
 void Start(sf::Sprite &s, sf::Texture &t);
