@@ -15,6 +15,7 @@
 #include <vector>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+
 using namespace std;
 
 class Utility{

@@ -4,7 +4,8 @@
 #include "utility.h"
 #include "player.h"
 #include "monster.h"
-#include "collision.h"
+#include <sstream>
+
 //Nah Nolan sucks
 
 void Start(sf::Sprite &s, sf::Texture &t);
@@ -39,6 +40,11 @@ int main()
 	f.loadFromFile("Fonts/AgentOrange.ttf");
 
 	sf::Text text("This is pizza, it will \n heal you, YUM!",f, int(15* tools.ReturnRatioX())+.5);
+	
+	
+
+	
+	
 
 	text.setColor(c);
 
@@ -73,11 +79,19 @@ int main()
 
 	//Start menu loop control
 	bool start = true;
-
+	bool pickedUp = false;
 	//MAIN LOOP
     while (window->isOpen())
     {	
         sf::Event event;
+
+		std::stringstream ss;
+		ss<<player.ReturnHp();
+	
+		sf::Text health(ss.str(),f,50);
+		ss.clear();
+
+		health.setPosition(tools.ReturnWidth()/2,0);
 
         while (window->pollEvent(event))
         {
@@ -99,13 +113,17 @@ int main()
 			start = Menu(*window,tools.ReturnRatioX(),tools.ReturnRatioY());
 		if(!start)
 		{
+			
 			window->clear();
+			
+
 			window->draw(bgs);
-			window->draw(pizza);
+
+	
 			//loads the player player,images, ect. (see char_player.h )
 			player.LoadControls(*window);
 			//scales player to proper resolution
-			player.ReturnPosition().scale(tools.ReturnRatioX(),tools.ReturnRatioY());
+			player.ReturnSprite().scale(tools.ReturnRatioX(),tools.ReturnRatioY());
 
 			if(tools.MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,pizza))
 			{
@@ -114,14 +132,21 @@ int main()
 				window->draw(bubble);
 				window->draw(text);
 			}
-			if(tools.SpriteCollision(pizza,player.ReturnPosition(),0))
+			if(!pickedUp)
+				window->draw(pizza);
+
+			if(tools.SpriteCollision(pizza,player.ReturnSprite(),0))
+				pickedUp = true;
+
+			if(pickedUp)
 			{
-				text.setPosition(pizza.getPosition().x,pizza.getPosition().y- tools.ReturnHeight()*.15);
-				bubble.setPosition(pizza.getPosition().x - tools.ReturnWidth()*.02,pizza.getPosition().y - tools.ReturnHeight()*.25);
-				window->draw(bubble);
-				window->draw(text);
+				pickedUp = false;
+				player.TakeDamage(-10);
 			}
+			
+
 		}
+		window->draw(health);
 		window->display();
     }
 	

@@ -5,6 +5,7 @@
 
 PlayerClass::PlayerClass()
 {
+	//moving information
 	velx = 0; 
 	vely = 0;
 	x = 10;
@@ -12,11 +13,13 @@ PlayerClass::PlayerClass()
 	speed =  1.5;
 	sourceX = 0; 
 	sourceY = 0;
-
+	//image information
 	down = 0;
 	left = 48;
 	right = 96;
 	up = 144;
+	//stats
+	hp = 100;
 
 	if(playerTexture.loadFromFile("Images/man.png"))
 		playerSprite.setTexture(playerTexture,0);
@@ -69,7 +72,17 @@ void PlayerClass::LoadControls(sf::RenderWindow & w)
 	w.draw(playerSprite);
 }
 //---------------------------------------------------------------------------------------
-sf::Sprite PlayerClass::ReturnPosition()
+sf::Sprite PlayerClass::ReturnSprite()
 {
 	return playerSprite;
+}
+//---------------------------------------------------------------------------------------
+int PlayerClass::ReturnHp()
+{
+	return hp;
+}
+//---------------------------------------------------------------------------------------
+void PlayerClass::TakeDamage(int x)
+{
+	hp = hp - x;
 }

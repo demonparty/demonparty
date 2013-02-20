@@ -20,8 +20,10 @@ class PlayerClass{
 		//constructor to set default values
 	
 		void LoadControls(sf::RenderWindow & w);
-		sf::Sprite ReturnPosition();
-
+		sf::Sprite ReturnSprite();
+		//stat functions
+		int ReturnHp();
+		void TakeDamage(int damage);
 	private:
 		sf::Sprite playerSprite;
 		sf::Texture playerTexture;
@@ -33,6 +35,7 @@ class PlayerClass{
 		int left;			//picture splits
 		int right;
 		int up;
+		int hp;
 };
 
 #endif
