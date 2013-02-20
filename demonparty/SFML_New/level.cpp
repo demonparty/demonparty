@@ -2,9 +2,9 @@
 
 Level::Level(Utility *t)
 {
-	PlayerClass player;
-
-	players.push_back(player);
+	PlayerClass* player;
+	player = new PlayerClass();
+	players.push_back(*player);
 
 	tools = t;
 	pickedUp = false;
@@ -39,13 +39,9 @@ bool Level::PlayLevel(sf::RenderWindow *w)
 	health.setPosition(tools->ReturnWidth()/2,0);
 		
 	w->clear();
-			
 
 	w->draw(bgs);
 
-	
-	//loads the player player,images, ect. (see char_players[0].h )
-	players[0].LoadControls(*w);
 	//scales player to proper resolution
 	players[0].ReturnSprite().scale(tools->ReturnRatioX(),tools->ReturnRatioY());
 
@@ -69,5 +65,7 @@ bool Level::PlayLevel(sf::RenderWindow *w)
 	}
 
 	w->draw(health);
+	
+	players[0].LoadControls(*w);
 	return false;
 }
