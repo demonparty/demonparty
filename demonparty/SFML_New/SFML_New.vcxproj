@@ -68,12 +68,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="level.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="level.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="utility.h" />

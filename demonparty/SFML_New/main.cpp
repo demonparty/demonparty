@@ -5,17 +5,15 @@
 #include "player.h"
 #include "monster.h"
 #include <sstream>
+#include "level.h"
 
 //Nah Nolan sucks
-
-void Start(sf::Sprite &s, sf::Texture &t);
 bool Menu(sf::RenderWindow &w, float ratioX, float ratioY);
 
 //made these global while testing
-PlayerClass player;
 Utility tools;			
 sf::View mainView;
-
+Level level(&tools);
 
 int main()
 { 
@@ -27,47 +25,6 @@ int main()
 	//RENDER WINDOW
 	sf::RenderWindow *window = tools.ReturnWindow();
 
-	//Setting up sprites and thier textures
-	// bgs - background sprite			bg - background texture
-	// bottom - bottom sprite          bottom texture - bottom picture
-	sf::Sprite bgs,bottom,pizza,bubble;
-	sf::Texture bg,bottom_texture,pizza_texture,bubble_texture;
-
-	
-	sf::Font f;
-	sf::Color c(0,0,0);
-
-	f.loadFromFile("Fonts/AgentOrange.ttf");
-
-	sf::Text text("This is pizza, it will \n heal you, YUM!",f, int(15* tools.ReturnRatioX())+.5);
-	
-	
-
-	
-	
-
-	text.setColor(c);
-
-	//pizza
-	pizza_texture.loadFromFile("Images/pizza.png");
-	pizza.setTexture(pizza_texture);
-	pizza.setPosition(tools.ReturnWidth()/2,tools.ReturnHeight()/2 );
-	pizza.scale(tools.ReturnRatioX(),tools.ReturnRatioY());
-	
-	//speech bubble
-	bubble_texture.loadFromFile("Images/bubble.png");
-	bubble.setTexture(bubble_texture);
-	bubble.scale(tools.ReturnRatioX(),tools.ReturnRatioY());
-
-	//Start function sets up background image and texture
-	Start(bgs,bg);
-	bgs.setScale(tools.ReturnRatioX(),tools.ReturnRatioY());
-
-	//loading bottom texture to sprite
-	bottom_texture.loadFromFile("Images/bottom.png");
-	bottom.setTexture(bottom_texture);
-	bottom.scale(10,10);
-
 	//Image manipulation, making transparent
 	tools.SetMask(43,133,133,"Images/man.png");
 	tools.SetMask(255,255,255,"Images/bottom.png");
@@ -76,22 +33,13 @@ int main()
 
 	//Setting up the view from tools
 	mainView = tools.ReturnView();
-
+	window->setFramerateLimit(30);
 	//Start menu loop control
 	bool start = true;
-	bool pickedUp = false;
 	//MAIN LOOP
     while (window->isOpen())
     {	
         sf::Event event;
-
-		std::stringstream ss;
-		ss<<player.ReturnHp();
-	
-		sf::Text health(ss.str(),f,50);
-		ss.clear();
-
-		health.setPosition(tools.ReturnWidth()/2,0);
 
         while (window->pollEvent(event))
         {
@@ -113,53 +61,15 @@ int main()
 			start = Menu(*window,tools.ReturnRatioX(),tools.ReturnRatioY());
 		if(!start)
 		{
-			
-			window->clear();
-			
-
-			window->draw(bgs);
-
-	
-			//loads the player player,images, ect. (see char_player.h )
-			player.LoadControls(*window);
-			//scales player to proper resolution
-			player.ReturnSprite().scale(tools.ReturnRatioX(),tools.ReturnRatioY());
-
-			if(tools.MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,pizza))
-			{
-				text.setPosition(pizza.getPosition().x,pizza.getPosition().y- tools.ReturnHeight()*.15);
-				bubble.setPosition(pizza.getPosition().x - tools.ReturnWidth()*.02,pizza.getPosition().y - tools.ReturnHeight()*.25);
-				window->draw(bubble);
-				window->draw(text);
-			}
-			if(!pickedUp)
-				window->draw(pizza);
-
-			if(tools.SpriteCollision(pizza,player.ReturnSprite(),0))
-				pickedUp = true;
-
-			if(pickedUp)
-			{
-				pickedUp = false;
-				player.TakeDamage(-10);
-			}
-			
-
+		
+			level.PlayLevel(window);
 		}
-		window->draw(health);
+		
 		window->display();
     }
 	
     return 0;
 }
-
-void Start(sf::Sprite &s, sf::Texture &t)
-{	
-	if(t.loadFromFile("Images/background.png"))			//loads background image from file
-		std::cout<<"Background loaded"<<std::endl;		//outputs into console
-	s.setTexture(t);									//sets texture to sprite
-}
-
 
 bool Menu(sf::RenderWindow &w, float ratioX, float ratioY)
 {

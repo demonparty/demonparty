@@ -10,7 +10,7 @@ PlayerClass::PlayerClass()
 	vely = 0;
 	x = 10;
 	y = 10; 
-	speed =  1.5;
+	speed =  25;
 	sourceX = 0; 
 	sourceY = 0;
 	//image information
@@ -23,6 +23,8 @@ PlayerClass::PlayerClass()
 
 	if(playerTexture.loadFromFile("Images/man.png"))
 		playerSprite.setTexture(playerTexture,0);
+	else
+		std::cout<<"bad"<<endl;
 	playerSprite.setScale(4.0,4.0);
 	playerSprite.setOrigin(0.0,-100.0);
 }
