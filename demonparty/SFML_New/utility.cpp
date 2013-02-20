@@ -38,6 +38,9 @@ bool Utility::MouseOver(int MouseX,int MouseY,sf::Sprite Sprite)
 //---------------------------------------------------------------------------------------
 bool Utility::SpriteCollision(sf::Sprite s1, sf::Sprite s2, int buffer)
 {
+	if(s1.getGlobalBounds().intersects(s2.getGlobalBounds()))
+		return true;
+
 	return false;
 }
 //---------------------------------------------------------------------------------------

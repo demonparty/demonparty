@@ -114,7 +114,7 @@ int main()
 				window->draw(bubble);
 				window->draw(text);
 			}
-			if(Collision::BoundingBoxTest(pizza,player.ReturnPosition()))
+			if(tools.SpriteCollision(pizza,player.ReturnPosition(),0))
 			{
 				text.setPosition(pizza.getPosition().x,pizza.getPosition().y- tools.ReturnHeight()*.15);
 				bubble.setPosition(pizza.getPosition().x - tools.ReturnWidth()*.02,pizza.getPosition().y - tools.ReturnHeight()*.25);
