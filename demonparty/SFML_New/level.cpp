@@ -3,7 +3,7 @@
 Level::Level(Utility *t)
 {
 	PlayerClass* player;
-	player = new PlayerClass();
+	player = new PlayerClass(t);
 	players.push_back(*player);
 
 	tools = t;
@@ -36,7 +36,7 @@ bool Level::PlayLevel(sf::RenderWindow *w)
 	sf::Text health(ss.str(),f,50);
 	ss.clear();
 
-	health.setPosition(tools->ReturnWidth()/2,0);
+	health.setPosition((tools->ReturnWidth()/2) - (health.getGlobalBounds().width/2),0);
 		
 	w->clear();
 
@@ -63,9 +63,21 @@ bool Level::PlayLevel(sf::RenderWindow *w)
 		pickedUp = false;
 		players[0].TakeDamage(-10);
 	}
-
+	SetBoundaries(w);
 	w->draw(health);
 	
 	players[0].LoadControls(*w);
 	return false;
+}
+void Level::SetBoundaries(sf::RenderWindow * w)
+{
+	
+	sf::FloatRect boundaries(players[0].ReturnSprite().getGlobalBounds().width,
+		tools->ReturnHeight()*.45,
+		tools->ReturnWidth() - 2*players[0].ReturnSprite().getGlobalBounds().width,
+		tools->ReturnHeight() - tools->ReturnHeight()*.55 - players[0].ReturnSprite().getGlobalBounds().width/2);
+
+	if(!(boundaries.intersects(players[0].ReturnSprite().getGlobalBounds())))
+		players[0].StopMovement(true);
+
 }

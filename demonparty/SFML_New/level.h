@@ -12,6 +12,7 @@ class Level{
 public:
 	Level(Utility *tools);
 	bool PlayLevel(sf::RenderWindow *w);
+	void SetBoundaries(sf::RenderWindow *w);
 private:
 	std::vector<PlayerClass> players;
 	sf::Sprite pizza, bubble, bgs;
@@ -21,6 +22,9 @@ private:
 	sf::Font f;
 	sf::Color c;
 	Utility *tools;
+
+	float top, bottom, right, left;
+
 };
 
 #endif

@@ -16,10 +16,12 @@ using namespace std;
 class PlayerClass{
 
 	public:
-		PlayerClass();
+		PlayerClass(Utility *tools);
 		//constructor to set default values
 	
 		void LoadControls(sf::RenderWindow & w);
+		void StopMovement(bool stop);
+
 		sf::Sprite ReturnSprite();
 		//stat functions
 		int ReturnHp();
@@ -30,7 +32,8 @@ class PlayerClass{
 		float velx, vely;
 		float x , y, speed;
 		int sourceX , sourceY;
-
+		bool stop;
+		Utility * tools;
 		int down;
 		int left;			//picture splits
 		int right;

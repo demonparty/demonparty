@@ -21,7 +21,6 @@ int main()
 	sf::Joystick::update();
 	if(sf::Joystick::isConnected(0))
 		std::cout<<"Controller 1: Connected"<<std::endl;
-
 	//RENDER WINDOW
 	sf::RenderWindow *window = tools.ReturnWindow();
 
@@ -34,6 +33,7 @@ int main()
 	//Setting up the view from tools
 	mainView = tools.ReturnView();
 	window->setFramerateLimit(30);
+	window->setVerticalSyncEnabled(true);
 	//Start menu loop control
 	bool start = true;
 	//MAIN LOOP
@@ -61,7 +61,7 @@ int main()
 			start = Menu(*window,tools.ReturnRatioX(),tools.ReturnRatioY());
 		if(!start)
 		{
-		
+
 			level.PlayLevel(window);
 		}
 		

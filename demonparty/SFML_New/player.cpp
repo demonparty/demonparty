@@ -3,14 +3,16 @@
 #include "utility.h"
 #include "player.h"
 
-PlayerClass::PlayerClass()
+PlayerClass::PlayerClass(Utility *t)
 {
+	tools = t;
+	stop = false;
 	//moving information
 	velx = 0; 
 	vely = 0;
 	x = 10;
 	y = 10; 
-	speed =  25;
+	speed = 30;
 	sourceX = 0; 
 	sourceY = 0;
 	//image information
@@ -26,20 +28,30 @@ PlayerClass::PlayerClass()
 	else
 		std::cout<<"bad"<<endl;
 	playerSprite.setScale(4.0,4.0);
-	playerSprite.setOrigin(0.0,-100.0);
+	playerSprite.setOrigin(-300,-200);
 }
 //---------------------------------------------------------------------------------------
 void PlayerClass::LoadControls(sf::RenderWindow & w)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Joystick::isButtonPressed(0,0))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		velx = speed;
 		sourceY = right;
+		if(stop)
+		{
+			velx = -speed;
+			stop = false;
+		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		sourceY = left;
 		velx = -speed;
+		if(stop)
+		{
+			velx = speed;
+			stop = false;
+		}
 	}
 	else
 		velx = 0;
@@ -48,17 +60,30 @@ void PlayerClass::LoadControls(sf::RenderWindow & w)
 	{
 		sourceY = up;
 		vely = -speed;
+		if(stop)
+		{
+			vely = speed;
+			stop = false;
+		}
+
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		sourceY = down;
 		vely = speed;
+		if(stop)
+		{
+			vely = -speed;
+			stop = false;
+		}
 	}
 	else
 		vely=0;
 
+
 	x += velx;
 	y += vely;
+
 
 	if(velx != 0 || vely != 0)
 		sourceX += playerTexture.getSize().x / 4;
@@ -87,4 +112,8 @@ int PlayerClass::ReturnHp()
 void PlayerClass::TakeDamage(int x)
 {
 	hp = hp - x;
+}
+void PlayerClass::StopMovement(bool s)
+{
+	stop = s;
 }

@@ -86,17 +86,14 @@ bool Utility::SetUpWindow(int resX, int resY)
 
 	window.create(sf::VideoMode(resX,resY),"asdasda",sf::Style::Fullscreen);
 	
-	//this finds values to set the window up to change sizes but not shape
+
 	int newH = (width*resY)/resX;
 	int displace = (newH - height)/(-2);
 
-	//sets a view to the window, like a 2d camera
 	v1 = sf::View(sf::FloatRect(0,displace,width,newH));
 
-	//sets a center of the view
 	v1.setCenter(width/2,height/2);
 
-	//assigns the view to the window
 	window.setView(v1);
 	
 	height = resY;
