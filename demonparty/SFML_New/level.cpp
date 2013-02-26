@@ -44,7 +44,7 @@ bool Level::PlayLevel(sf::RenderWindow *w)
 
 	//scales player to proper resolution
 	players[0].ReturnSprite().scale(tools->ReturnRatioX(),tools->ReturnRatioY());
-
+	players[0].setX(0);
 	if(tools->MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,pizza))
 	{
 		text.setPosition(pizza.getPosition().x,pizza.getPosition().y- tools->ReturnHeight()*.15);
@@ -71,13 +71,12 @@ bool Level::PlayLevel(sf::RenderWindow *w)
 }
 void Level::SetBoundaries(sf::RenderWindow * w)
 {
-	
-	sf::FloatRect boundaries(players[0].ReturnSprite().getGlobalBounds().width,
+/*	sf::FloatRect boundaries(players[0].ReturnSprite().getGlobalBounds().width,
 		tools->ReturnHeight()*.45,
 		tools->ReturnWidth() - 2*players[0].ReturnSprite().getGlobalBounds().width,
 		tools->ReturnHeight() - tools->ReturnHeight()*.55 - players[0].ReturnSprite().getGlobalBounds().width/2);
 
 	if(!(boundaries.intersects(players[0].ReturnSprite().getGlobalBounds())))
 		players[0].StopMovement(true);
-
+		*/
 }

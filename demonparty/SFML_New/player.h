@@ -26,6 +26,13 @@ class PlayerClass{
 		//stat functions
 		int ReturnHp();
 		void TakeDamage(int damage);
+		int getY(){return y;};
+		int getX(){return x;};
+		int getVelY(){return vely;};
+		int getVelX(){return velx;};
+		void setY(int newY){y = newY;};
+		void setX(int newX){x = newX;};
+
 	private:
 		sf::Sprite playerSprite;
 		sf::Texture playerTexture;

@@ -10,7 +10,7 @@ PlayerClass::PlayerClass(Utility *t)
 	//moving information
 	velx = 0; 
 	vely = 0;
-	x = 10;
+	x = 0;
 	y = 10; 
 	speed = 30;
 	sourceX = 0; 
@@ -28,7 +28,7 @@ PlayerClass::PlayerClass(Utility *t)
 	else
 		std::cout<<"bad"<<endl;
 	playerSprite.setScale(4.0,4.0);
-	playerSprite.setOrigin(-300,-200);
+//	playerSprite.setOrigin(-300,-200);
 }
 //---------------------------------------------------------------------------------------
 void PlayerClass::LoadControls(sf::RenderWindow & w)
