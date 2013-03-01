@@ -18,6 +18,19 @@
 
 using namespace std;
 
+struct AttackT {
+	enum attack;
+	sf::Sprite sp;
+	sf::Texture tex;
+	sf::Time time;
+	float damage;
+	int parent;
+};
+
+struct ItemT{
+	string name;
+};
+
 class Utility{
 	
 public:

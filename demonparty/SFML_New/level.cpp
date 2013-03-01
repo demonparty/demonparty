@@ -11,7 +11,7 @@ Level::Level(Utility *t)
 	//pizza
 	pizza_texture.loadFromFile("Images/pizza.png");
 	pizza.setTexture(pizza_texture);
-	pizza.setPosition(tools->ReturnWidth()/2,tools->ReturnHeight()/2 );
+	pizza.setPosition(tools->ReturnWidth()*.5,tools->ReturnHeight()*.7);
 	pizza.scale(tools->ReturnRatioX(),tools->ReturnRatioY());
 	
 	//speech bubble
@@ -23,7 +23,7 @@ Level::Level(Utility *t)
 	c = sf::Color(0,0,0);
 	text = sf::Text("This is pizza, it will \n heal you, YUM!",f, int(15* tools->ReturnRatioX())+.5);
 	text.setColor(c);
-	bg_texture.loadFromFile("Images/background.png");
+	bg_texture.loadFromFile("Images/fink_bg.jpg");
 	bgs.setTexture(bg_texture);				
 	bgs.setScale(tools->ReturnRatioX(),tools->ReturnRatioY());
 }
@@ -35,16 +35,17 @@ bool Level::PlayLevel(sf::RenderWindow *w)
 	
 	sf::Text health(ss.str(),f,50);
 	ss.clear();
+	SetBoundaries();
 
 	health.setPosition((tools->ReturnWidth()/2) - (health.getGlobalBounds().width/2),0);
 		
 	w->clear();
 
 	w->draw(bgs);
-
+	
 	//scales player to proper resolution
 	players[0].ReturnSprite().scale(tools->ReturnRatioX(),tools->ReturnRatioY());
-	players[0].setX(0);
+
 	if(tools->MouseOver(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y,pizza))
 	{
 		text.setPosition(pizza.getPosition().x,pizza.getPosition().y- tools->ReturnHeight()*.15);
@@ -63,20 +64,31 @@ bool Level::PlayLevel(sf::RenderWindow *w)
 		pickedUp = false;
 		players[0].TakeDamage(-10);
 	}
-	SetBoundaries(w);
+	
 	w->draw(health);
 	
 	players[0].LoadControls(*w);
 	return false;
 }
-void Level::SetBoundaries(sf::RenderWindow * w)
+void Level::SetBoundaries()
 {
-/*	sf::FloatRect boundaries(players[0].ReturnSprite().getGlobalBounds().width,
-		tools->ReturnHeight()*.45,
-		tools->ReturnWidth() - 2*players[0].ReturnSprite().getGlobalBounds().width,
-		tools->ReturnHeight() - tools->ReturnHeight()*.55 - players[0].ReturnSprite().getGlobalBounds().width/2);
+	float side_right = 0;
+	float side_left = 0;
+	float top = 0;
+	float bottom = 0;
 
-	if(!(boundaries.intersects(players[0].ReturnSprite().getGlobalBounds())))
-		players[0].StopMovement(true);
-		*/
+	side_right = tools->ReturnWidth() - players[0].ReturnSprite().getGlobalBounds().width;
+	top = tools->ReturnHeight() *.45;
+	bottom = tools->ReturnHeight() - players[0].ReturnSprite().getGlobalBounds().height;
+
+	if(players[0].getX() <= side_left)
+		players[0].setX(side_left);
+	if(players[0].getX() >= side_right)
+		players[0].setX(side_right);
+	if(players[0].getY() <= top)
+		players[0].setY(top);
+	if(players[0].getY() >= bottom)
+		players[0].setY(bottom);
+	
+
 }

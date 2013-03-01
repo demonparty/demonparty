@@ -28,7 +28,7 @@ PlayerClass::PlayerClass(Utility *t)
 	else
 		std::cout<<"bad"<<endl;
 	playerSprite.setScale(4.0,4.0);
-//	playerSprite.setOrigin(-300,-200);
+
 }
 //---------------------------------------------------------------------------------------
 void PlayerClass::LoadControls(sf::RenderWindow & w)
@@ -37,45 +37,24 @@ void PlayerClass::LoadControls(sf::RenderWindow & w)
 	{
 		velx = speed;
 		sourceY = right;
-		if(stop)
-		{
-			velx = -speed;
-			stop = false;
-		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		sourceY = left;
 		velx = -speed;
-		if(stop)
-		{
-			velx = speed;
-			stop = false;
-		}
 	}
 	else
 		velx = 0;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		sourceY = up;
+		//sourceY = up;
 		vely = -speed;
-		if(stop)
-		{
-			vely = speed;
-			stop = false;
-		}
-
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		sourceY = down;
+		//sourceY = down;
 		vely = speed;
-		if(stop)
-		{
-			vely = -speed;
-			stop = false;
-		}
 	}
 	else
 		vely=0;

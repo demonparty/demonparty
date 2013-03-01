@@ -98,7 +98,7 @@ bool Menu(sf::RenderWindow &w, float ratioX, float ratioY)
 	quit_button.scale(ratioX,ratioY);
 	
 	//setting position of the play and quit buttons
-	play_button.setPosition((mainView.getCenter().x-(play_button.getTextureRect().width/2)),mainView.getCenter().y +(mainView.getCenter().y*.35));
+	play_button.setPosition((mainView.getCenter().x-(play_button.getTextureRect().width/2)),mainView.getCenter().y +(mainView.getCenter().y*.05));
 	quit_button.setPosition((mainView.getCenter().x-(play_button.getTextureRect().width/2)),mainView.getCenter().y +(mainView.getCenter().y*.50));
 
 	//clear the window before drawing
