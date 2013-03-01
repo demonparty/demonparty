@@ -67,12 +67,12 @@ float Utility::ReturnRatioY()
 //---------------------------------------------------------------------------------------
 int Utility::ReturnHeight()
 {
-	return height;
+	return window.getSize().y;
 }
 //---------------------------------------------------------------------------------------
 int Utility::ReturnWidth()
 {
-	return width;
+	return window.getSize().x;
 }
 //---------------------------------------------------------------------------------------
 sf::RenderWindow* Utility::ReturnWindow()
@@ -106,4 +106,13 @@ bool Utility::SetUpWindow(int resX, int resY)
 sf::View Utility::ReturnView()
 {
 	return v1;
+}
+void Utility::CopyAttackT(AttackT att_1, AttackT &att_2)
+{
+	att_2.damage = att_1.damage;
+	att_2.name = att_1.name;
+	att_2.parent = att_1.parent;
+	att_2.sp = att_1.sp;
+	att_2.tex = att_1.tex;
+	att_2.time = att_1.time;
 }

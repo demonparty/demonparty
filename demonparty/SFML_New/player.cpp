@@ -21,7 +21,7 @@ PlayerClass::PlayerClass(Utility *t)
 	right = 96;
 	up = 144;
 	//stats
-	hp = 100;
+	health = 100;
 
 	if(playerTexture.loadFromFile("Images/man.png"))
 		playerSprite.setTexture(playerTexture,0);
@@ -29,6 +29,14 @@ PlayerClass::PlayerClass(Utility *t)
 		std::cout<<"bad"<<endl;
 	playerSprite.setScale(4.0,4.0);
 
+	AttackT *fireball;
+	fireball = new AttackT;
+	fireball->tex.loadFromFile("Images/fireball.png");
+	fireball->sp.setTexture(fireball->tex);
+	fireball->damage = -10;
+	fireball->parent = 0;
+	fireball->name = "fireball";
+	Pattacks.push_back(*fireball);
 }
 //---------------------------------------------------------------------------------------
 void PlayerClass::LoadControls(sf::RenderWindow & w)
@@ -72,7 +80,6 @@ void PlayerClass::LoadControls(sf::RenderWindow & w)
 	if(sourceX == playerTexture.getSize().x)
 		sourceX = 0;
 
-	//w.clear()
 	playerSprite.setTextureRect(sf::IntRect(sourceX, sourceY,playerTexture.getSize().x / 4, playerTexture.getSize().y /4 ));
 	playerSprite.setPosition(x,y);
 	w.draw(playerSprite);
@@ -83,16 +90,27 @@ sf::Sprite PlayerClass::ReturnSprite()
 	return playerSprite;
 }
 //---------------------------------------------------------------------------------------
-int PlayerClass::ReturnHp()
+float PlayerClass::ReturnHealth()
 {
-	return hp;
+	return health;
 }
 //---------------------------------------------------------------------------------------
-void PlayerClass::TakeDamage(int x)
+void PlayerClass::TakeDamage(float x)
 {
-	hp = hp - x;
+	health = health - x;
 }
 void PlayerClass::StopMovement(bool s)
 {
 	stop = s;
+}
+AttackT* PlayerClass::Attack()
+{
+	return &Pattacks[0];
+}
+bool PlayerClass::HasAttacked()
+{
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E))
+		return true;
+	else
+		return false;
 }

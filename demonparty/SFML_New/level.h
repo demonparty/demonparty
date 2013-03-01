@@ -22,8 +22,14 @@ public:
 	void PlayerAttacks();
 	void CheckAttackTimers();
 	void PlayerAttackCheck();
-	void EnemyAttackCheck();	
-
+	void EnemyAttackCheck();
+	void CheckItemCollision();
+	void DrawItems(sf::RenderWindow *w);
+	void MouseOverItem(sf::RenderWindow *w);
+	void PlayerOnItem(PlayerClass& player, ItemT item);
+	//called when the player collides with the item
+	void LoadPlayerControls();
+	void DrawAttacks(sf::RenderWindow *w);
 
 private:
 
@@ -38,8 +44,8 @@ private:
 	float top, bottom, right, left;
 	vector<MonsterClass> enemies;
 	vector<PlayerClass> players;
-	vector<AttackT> activeAttacks;
-	vector<AttackT> enemyAttacks;
+	vector<AttackT> Pattacks;
+	vector<AttackT> Eattacks;
 	vector<ItemT> items;
 
 };

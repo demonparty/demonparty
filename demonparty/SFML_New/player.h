@@ -11,13 +11,14 @@
 #include <vector>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+
 using namespace std;
 
 class PlayerClass {
   public:
 	void Controls();
-	AttackT Attacks();
-	vector<AttackT>PossibleAttacks();
+	AttackT* Attack();
+	bool HasAttacked();
 	int GetLuck(){return luck;}
 	int GetAgility(){return agility;}
 	int GetTech(){return tech;}
@@ -35,8 +36,8 @@ class PlayerClass {
 
 	sf::Sprite ReturnSprite();
 	//stat functions
-	int ReturnHp();
-	void TakeDamage(int damage);
+	float ReturnHealth();
+	void TakeDamage(float damage);
 	int getY(){return y;};
 	int getX(){return x;};
 	int getVelY(){return vely;};
@@ -46,26 +47,35 @@ class PlayerClass {
 
 
 private:
+	//stats
 	float health;
 	int luck;
 	int agility;
 	int tech;
 	int damage;
+	vector<AttackT> Pattacks;
+
+	//sf::
 	sf::Sprite sp;
 	sf::Texture tex;
 	string name;
 	sf::Sprite playerSprite;
 	sf::Texture playerTexture;
+
+	//animation
 	float velx, vely;
 	float x , y, speed;
 	int sourceX , sourceY;
 	bool stop;
-	Utility * tools;
+
+	//picture splits
 	int down;
-	int left;			//picture splits
+	int left;			
 	int right;
 	int up;
-	int hp;
+	
+	//tools
+	Utility * tools;
 };
 
 #endif

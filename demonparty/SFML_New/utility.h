@@ -1,4 +1,4 @@
-/* utility.h - Nolan Vance
+/* utility.h 
 ---------------------------------
 + color masking
 + screen sizing
@@ -7,6 +7,7 @@
 
 #ifndef demon_utility
 #define demon_utility
+
 
 #include <iostream>
 #include <string>
@@ -25,10 +26,14 @@ struct AttackT {
 	sf::Time time;
 	float damage;
 	int parent;
+	string name;
 };
 
 struct ItemT{
 	string name;
+	sf::Sprite sprite;
+	sf::Texture texture;
+	string description;
 };
 
 class Utility{
@@ -68,6 +73,8 @@ public:
 
 	sf::View ReturnView();
 	//Returns view
+
+	void CopyAttackT(AttackT att_1, AttackT& att_2);
 
 private:	
 	

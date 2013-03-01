@@ -29,7 +29,7 @@ int main()
 	tools.SetMask(255,255,255,"Images/bottom.png");
 	tools.SetMask(255,255,255,"Images/pizza.png");
 	tools.SetMask(255,128,255,"Images/bubble.png");
-
+	tools.SetMask(255,255,255,"Images/fireball.png");
 	//Setting up the view from tools
 	mainView = tools.ReturnView();
 	window->setFramerateLimit(30);
