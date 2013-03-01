@@ -30,7 +30,6 @@ Level::Level(Utility *t)
 	items[0].sprite.scale(tools->ReturnRatioX(),tools->ReturnRatioY());
 	items[0].sprite.setPosition(tools->ReturnWidth()*.5,tools->ReturnHeight()*.7);
 	
-	
 	//text
 	f.loadFromFile("Fonts/AgentOrange.ttf");
 	c = sf::Color(0,0,0);
@@ -38,11 +37,12 @@ Level::Level(Utility *t)
 	text.setColor(c);
 }
 //------------------------------------------------------------------------
-bool Level::PlayLevel(sf::RenderWindow *w)
+bool Level::PlayLevel(sf::RenderWindow *w, sf::Clock* clock)
 {
+
 	std::stringstream ss;
-	ss<<players[0].ReturnHealth();
-	
+	//ss<<players[0].ReturnHealth();
+	ss<<int(clock->getElapsedTime().asSeconds());
 	sf::Text health(ss.str(),f,50);
 	ss.clear();
 	SetBoundaries();
@@ -52,12 +52,17 @@ bool Level::PlayLevel(sf::RenderWindow *w)
 	w->clear();
 
 	w->draw(bgs);
-	cout<<"Number of attacks: "<<Pattacks.size()<<endl;
+	//cout<<"Number of attacks: "<<Pattacks.size()<<endl;
 	DrawItems(w);
 	DrawAttacks(w);
 	CheckItemCollision();
 	MouseOverItem(w);
-	PlayerAttackCheck();
+	if(attackTimer.getElapsedTime().asMilliseconds() > 100)
+	{
+		PlayerAttackCheck();
+		attackTimer.restart();
+	}
+
 	//scales player to proper resolution
 	players[0].ReturnSprite().scale(tools->ReturnRatioX(),tools->ReturnRatioY());
 	
@@ -145,17 +150,15 @@ void Level::LoadPlayerControls()
 }
 void Level::PlayerAttackCheck()
 {
-	AttackT* tmp;
-	AttackT copy;
-
 	for(int i=0;i<players.size();i++)
 	{
 		if(players[i].HasAttacked())
 		{
-			tools->CopyAttackT(*players[i].Attack(), copy);
-			copy.sp.setPosition(players[i].ReturnSprite().getPosition());
-			copy.sp.setScale(.5,.5);
-			Pattacks.push_back(copy);
+			AttackT* tmp;
+
+			tmp = players[i].Attack();
+			tmp->sp.setPosition(players[i].ReturnSprite().getPosition());
+			Pattacks.push_back(*tmp);
 			
 		}
 	}
@@ -168,7 +171,7 @@ void Level::DrawAttacks(sf::RenderWindow *w)
 		w->draw(Pattacks[i].sp);
 
 		if(Pattacks[i].name == "fireball")
-			Pattacks[i].sp.move(20,0);
+			Pattacks[i].sp.move(30,0);
 
 		if(Pattacks[i].sp.getPosition().x > tools->ReturnWidth() || Pattacks[i].sp.getPosition().y < 0)
 		{

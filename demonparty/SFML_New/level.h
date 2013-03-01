@@ -12,7 +12,7 @@
 class Level{
 public:
 	Level(Utility *tools);
-	bool PlayLevel(sf::RenderWindow *w);
+	bool PlayLevel(sf::RenderWindow *w,sf::Clock * clock);
 	void SetBoundaries();
 	sf::Time lvlTimer;
 	void PlayerPickups();
@@ -47,7 +47,9 @@ private:
 	vector<AttackT> Pattacks;
 	vector<AttackT> Eattacks;
 	vector<ItemT> items;
+	AttackT copys[10];
 
+	sf::Clock attackTimer;
 };
 
 #endif

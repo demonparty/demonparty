@@ -17,6 +17,7 @@ Level level(&tools);
 
 int main()
 { 
+	sf::Clock clock;
 	//JOYSTICK SETUP
 	sf::Joystick::update();
 	if(sf::Joystick::isConnected(0))
@@ -30,6 +31,8 @@ int main()
 	tools.SetMask(255,255,255,"Images/pizza.png");
 	tools.SetMask(255,128,255,"Images/bubble.png");
 	tools.SetMask(255,255,255,"Images/fireball.png");
+
+	window->setKeyRepeatEnabled(true);
 	//Setting up the view from tools
 	mainView = tools.ReturnView();
 	window->setFramerateLimit(30);
@@ -39,8 +42,8 @@ int main()
 	//MAIN LOOP
     while (window->isOpen())
     {	
-        sf::Event event;
 
+        sf::Event event;
         while (window->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
@@ -62,7 +65,7 @@ int main()
 		if(!start)
 		{
 
-			level.PlayLevel(window);
+			level.PlayLevel(window,&clock);
 		}
 		
 		window->display();
