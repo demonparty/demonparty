@@ -14,7 +14,7 @@ Level::Level(Utility *t)
 	bubble.setTexture(bubble_texture);
 	bubble.scale(tools->ReturnRatioX(),tools->ReturnRatioY());
 	
-	bg_texture.loadFromFile("Images/fink_bg.jpg");
+	bg_texture.loadFromFile("Images/fink_bg.png");
 	bgs.setTexture(bg_texture);				
 	bgs.setScale(tools->ReturnRatioX(),tools->ReturnRatioY());
 
@@ -41,13 +41,13 @@ bool Level::PlayLevel(sf::RenderWindow *w, sf::Clock* clock)
 {
 
 	std::stringstream ss;
-	//ss<<players[0].ReturnHealth();
-	ss<<int(clock->getElapsedTime().asSeconds());
+	ss<<players[0].ReturnHealth();
+	//ss<<int(clock->getElapsedTime().asSeconds());
 	sf::Text health(ss.str(),f,50);
 	ss.clear();
 	SetBoundaries();
 	
-	health.setPosition((tools->ReturnWidth()/2) - (health.getGlobalBounds().width/2),0);
+	health.setPosition((tools->ReturnOriginalWidth()/2) - (health.getGlobalBounds().width/2),0);
 	
 	w->clear();
 
@@ -62,7 +62,6 @@ bool Level::PlayLevel(sf::RenderWindow *w, sf::Clock* clock)
 		PlayerAttackCheck();
 		attackTimer.restart();
 	}
-
 	//scales player to proper resolution
 	players[0].ReturnSprite().scale(tools->ReturnRatioX(),tools->ReturnRatioY());
 	
@@ -79,8 +78,8 @@ void Level::SetBoundaries()
 	float top = 0;
 	float bottom = 0;
 
-	side_right = tools->ReturnWidth() - players[0].ReturnSprite().getGlobalBounds().width;
-	top = tools->ReturnHeight() *.45;
+	side_right = tools->ReturnOriginalWidth() - players[0].ReturnSprite().getGlobalBounds().width;
+	top = tools->ReturnOriginalHeight() *.45;
 	bottom = tools->ReturnHeight() - players[0].ReturnSprite().getGlobalBounds().height;
 
 	if(players[0].getX() <= side_left)

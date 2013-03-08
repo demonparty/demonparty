@@ -68,13 +68,16 @@ public:
 	sf::RenderWindow* ReturnWindow();
 	//returns the window
 
-	bool Utility::SetUpWindow(int resX, int resY);
+	bool Utility::SetUpWindow(float resX, float resY);
 	//checks for input to change screen size
 
 	sf::View ReturnView();
 	//Returns view
 
 	void CopyAttackT(AttackT att_1, AttackT& att_2);
+
+	float ReturnOriginalHeight();
+	float ReturnOriginalWidth();
 
 private:	
 	
@@ -84,6 +87,8 @@ private:
 	float ratioY;
 	float Original_h;
 	float Original_w;
+	int displace;
+
 	sf::RenderWindow window;
 	sf::View v1;
 };

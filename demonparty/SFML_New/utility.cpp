@@ -2,6 +2,7 @@
 
 #include "utility.h"
 
+void CheckResolution(float &resX, float &resY);
 
 Utility::Utility()
 {
@@ -16,11 +17,8 @@ Utility::Utility()
 	height = Original_h;
 	width = Original_w;
 
-	//getting the ratio of height amd width of the screen to the original size of 1920x1200
-	// the background images are set to this.
-	ratioX = width/1920.0;
-	ratioY = height/1080.0;
-	
+	CheckResolution(width,height);
+
 	SetUpWindow(width,height);
 }
 //---------------------------------------------------------------------------------------
@@ -80,15 +78,18 @@ sf::RenderWindow* Utility::ReturnWindow()
 	return &window;
 }
 //---------------------------------------------------------------------------------------
-bool Utility::SetUpWindow(int resX, int resY)
+bool Utility::SetUpWindow(float resX, float resY)
 {
-	//creates a mew renderwindow with the inputed sizes
+	CheckResolution(resX,resY);
 
-	window.create(sf::VideoMode(resX,resY),"asdasda",sf::Style::Fullscreen);
-	
+	ratioX = resX/1920.0;
+	ratioY = resY/1080.0;
+
+	//creates a mew renderwindow with the inputed sizes
+	window.create(sf::VideoMode(resX,resY),"Demon Party",sf::Style::Fullscreen);
 
 	int newH = (width*resY)/resX;
-	int displace = (newH - height)/(-2);
+	displace = (newH - height)/(-2);
 
 	v1 = sf::View(sf::FloatRect(0,displace,width,newH));
 
@@ -115,4 +116,20 @@ void Utility::CopyAttackT(AttackT att_1, AttackT &att_2)
 	att_2.sp = att_1.sp;
 	att_2.tex = att_1.tex;
 	att_2.time = att_1.time;
+}
+float Utility::ReturnOriginalHeight()
+{
+	return Original_h;
+}
+float Utility::ReturnOriginalWidth()
+{
+	return Original_w;
+}
+
+void CheckResolution(float &resX, float &resY)
+{
+	if(resY == 1200 && resX == 1920){
+		resY = 1080;}
+	if(resY == 600 && resX == 800){
+		resY = 540;resX = 960;}
 }
