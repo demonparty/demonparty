@@ -67,6 +67,8 @@ private:
 	float x , y, speed;
 	int sourceX , sourceY;
 	bool stop;
+	int facing;
+	int slowAnim;
 
 	//picture splits
 	int down;

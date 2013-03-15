@@ -15,6 +15,8 @@ PlayerClass::PlayerClass(Utility *t)
 	speed = 30;
 	sourceX = 0; 
 	sourceY = 0;
+	facing=0;
+	slowAnim = 0;
 	//image information
 	down = 0;
 	left = 48;
@@ -23,11 +25,11 @@ PlayerClass::PlayerClass(Utility *t)
 	//stats
 	health = 100;
 
-	if(playerTexture.loadFromFile("Images/man.png"))
+	if(playerTexture.loadFromFile("Images/wizardwalk_3.png"))
 		playerSprite.setTexture(playerTexture,0);
 	else
 		std::cout<<"bad"<<endl;
-	playerSprite.setScale(4.0,4.0);
+	//playerSprite.setScale(4.0,4.0);
 
 	AttackT *fireball;
 	fireball = new AttackT;
@@ -44,12 +46,14 @@ void PlayerClass::LoadControls(sf::RenderWindow & w)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		velx = speed;
-		sourceY = right;
+		//sourceY = right;
+		facing = 0;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		sourceY = left;
+		//sourceY = left;
 		velx = -speed;
+		facing = 250;
 	}
 	else
 		velx = 0;
@@ -72,15 +76,24 @@ void PlayerClass::LoadControls(sf::RenderWindow & w)
 	y += vely;
 
 
-	if(velx != 0 || vely != 0)
-		sourceX += playerTexture.getSize().x / 4;
-	else
-		sourceX = 0;
+	if(velx != 0 || vely != 0){
+		slowAnim++;
+		if(slowAnim > 3){
+			sourceX += playerTexture.getSize().x / 11;
+			slowAnim = 0;
+		}
+	}else{
+		if(facing == 0){
+			sourceX = 0;
+		}else{
+			sourceX = playerTexture.getSize().x - 250;
+		}
+	}
 
 	if(sourceX == playerTexture.getSize().x)
 		sourceX = 0;
 
-	playerSprite.setTextureRect(sf::IntRect(sourceX, sourceY,playerTexture.getSize().x / 4, playerTexture.getSize().y /4 ));
+	playerSprite.setTextureRect(sf::IntRect(sourceX, facing,playerTexture.getSize().x / 11,  250));
 	playerSprite.setPosition(x,y);
 	w.draw(playerSprite);
 }
